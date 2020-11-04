@@ -11,11 +11,11 @@
         <caption>Data Source</caption>
         <description></description>
       </property>
-      <property key="content" type="widgets" required="false" dataSource="datasource">
+      <property key="content" type="widgets" required="true" dataSource="datasource">
         <caption>Content</caption>
         <description></description>
       </property>
-      <property key="attr" type="attribute" required="false" dataSource="datasource">
+      <property key="attr" type="attribute" required="true" dataSource="datasource">
         <caption>Search Attribute</caption>
         <description></description>
         <attributeTypes>
