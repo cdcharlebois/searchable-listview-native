@@ -26,5 +26,7 @@
     "devDependencies": {
         "@mendix/pluggable-widgets-tools": "^8.9.2"
     },
-    "dependencies": {}
+    "dependencies": {
+        "react-native-searchable-list": "^1.1.3"
+    }
 }
