@@ -1,4 +1,4 @@
-import { Component, createElement, useState } from "react";
+import { Component, createElement, useState, useEffect, useRef } from "react";
 import { TextInput, View } from "react-native";
 import { SearchableFlatList } from "react-native-searchable-list";
 import { flattenStyles } from "./utils/common";
@@ -10,6 +10,15 @@ const defaultStyle = {
 
 export const SearchableListViewNative = ({ datasource, content, attr, style, placeholder }) => {
     const [searchTerm, setSearchTerm] = useState("");
+    const pid = useRef(null);
+    useEffect(() => {
+        if (datasource.status !== "available") {
+            pid.current = mx.ui.showProgress();
+        } else {
+            mx.ui.hideProgress(pid.current);
+            pid.current = null;
+        }
+    }, [datasource.status]);
     const styles = flattenStyles(defaultStyle, style);
     const data =
         datasource.status !== "available"

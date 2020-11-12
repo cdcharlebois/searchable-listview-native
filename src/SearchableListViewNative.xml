@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<widget id="mendix.searchablelistviewnative.SearchableListViewNative" pluginWidget="true" needsEntityContext="true" offlineCapable="true" supportedPlatform="Native"
-  xmlns="http://www.mendix.com/widget/1.0/"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
-  <name>Searchable List View Native</name>
-  <description>A Searchable listview for native</description>
-  <icon/>
-  <properties>
-    <propertyGroup caption="General">
-      <property key="datasource" type="datasource" required="true" isList="true">
-        <caption>Data Source</caption>
-        <description></description>
-      </property>
-      <property key="content" type="widgets" required="true" dataSource="datasource">
-        <caption>Content</caption>
-        <description></description>
-      </property>
-      <property key="attr" type="attribute" required="true" dataSource="datasource">
-        <caption>Search Attribute</caption>
-        <description></description>
-        <attributeTypes>
-          <attributeType name="String" />
-        </attributeTypes>
-      </property>
-      <property key="placeholder" type="expression" defaultValue="'Search...'">
-        <caption>Expression</caption>
-        <description>Enter the placeholder text</description>
-        <returnType type="String" />
-      </property>
-    </propertyGroup>
-  </properties>
+<widget
+    id="mendix.searchablelistviewnative.SearchableListViewNative"
+    pluginWidget="true"
+    needsEntityContext="true"
+    offlineCapable="true"
+    supportedPlatform="Native"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd"
+>
+    <name>Searchable List View Native</name>
+    <description>A Searchable listview for native</description>
+    <icon />
+    <properties>
+        <propertyGroup caption="General">
+            <property key="datasource" type="datasource" required="true" isList="true">
+                <caption>Data Source</caption>
+                <description />
+            </property>
+            <property key="content" type="widgets" required="true" dataSource="datasource">
+                <caption>Content</caption>
+                <description />
+            </property>
+            <property key="attr" type="attribute" required="true" dataSource="datasource">
+                <caption>Search Attribute</caption>
+                <description />
+                <attributeTypes>
+                    <attributeType name="String" />
+                </attributeTypes>
+            </property>
+            <property key="placeholder" type="expression" defaultValue="'Search...'">
+                <caption>Placeholder</caption>
+                <description>Enter the placeholder text</description>
+                <returnType type="String" />
+            </property>
+        </propertyGroup>
+    </properties>
 </widget>
