@@ -12,12 +12,23 @@ export const SearchableListViewNative = ({ datasource, content, attr, style, pla
     const [searchTerm, setSearchTerm] = useState("");
     const pid = useRef(null);
     useEffect(() => {
-        if (datasource.status !== "available") {
+        if (datasource.status !== "available" && pid.current == null) {
             pid.current = mx.ui.showProgress();
+            console.debug(`SearchableListViewNative: Showing progress (${pid.current})`);
         } else {
-            mx.ui.hideProgress(pid.current);
-            pid.current = null;
+            if (pid.current != null) {
+                mx.ui.hideProgress(pid.current);
+                console.debug(`SearchableListViewNative: Hiding progress (${pid.current})`);
+                pid.current = null;
+            }
         }
+        return () => {
+            if (pid.current != null) {
+                mx.ui.hideProgress(pid.current);
+                console.debug(`SearchableListViewNative: Hiding progress (${pid.current})`);
+                pid.current = null;
+            }
+        };
     }, [datasource.status]);
     const styles = flattenStyles(defaultStyle, style);
     const data =
@@ -25,7 +36,7 @@ export const SearchableListViewNative = ({ datasource, content, attr, style, pla
             ? null
             : datasource.items.map(item => ({
                   id: item.id,
-                  attrVal: attr(item).value,
+                  attrVal: attr(item).value || "",
                   objItem: item
               }));
     return datasource.status !== "available" ? null : (
