@@ -1,6 +1,5 @@
 import { Component, createElement, useState, useEffect, useRef } from "react";
-import { TextInput, View } from "react-native";
-import { SearchableFlatList } from "react-native-searchable-list";
+import { TextInput, View, FlatList } from "react-native";
 import { flattenStyles } from "./utils/common";
 const defaultStyle = {
     container: {},
@@ -31,15 +30,18 @@ export const SearchableListViewNative = ({ datasource, content, attr, style, pla
         };
     }, [datasource.status]);
     const styles = flattenStyles(defaultStyle, style);
-    const data =
-        datasource.status !== "available"
-            ? null
-            : datasource.items.map(item => ({
-                  id: item.id,
-                  attrVal: attr(item).value || "",
-                  objItem: item
-              }));
-    return datasource.status !== "available" ? null : (
+    const filteredData = () => {
+        return datasource.items
+            ? datasource.items.filter(item => {
+                  return attr(item).value
+                      ? attr(item)
+                            .value.toLowerCase()
+                            .indexOf(searchTerm.toLowerCase()) > -1
+                      : false;
+              })
+            : [];
+    };
+    return datasource.items ? (
         <View style={styles.container}>
             <TextInput
                 style={styles.input}
@@ -47,15 +49,8 @@ export const SearchableListViewNative = ({ datasource, content, attr, style, pla
                 value={searchTerm}
                 onChangeText={searchTerm => setSearchTerm(searchTerm)}
             />
-            <SearchableFlatList
-                data={data}
-                searchTerm={searchTerm}
-                searchAttribute={"attrVal"}
-                ignoreCase={true}
-                renderItem={({ item }) => content(item.objItem)}
-                keyExtractor={item => item.id}
-            />
+            <FlatList data={filteredData()} renderItem={({ item }) => content(item)} keyExtractor={item => item.id} />
         </View>
-    );
+    ) : null;
 };
 SearchableListViewNative.displayName = "SearchableListViewNative";
