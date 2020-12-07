@@ -56,7 +56,12 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
      * - use some intelligence to look at numeric types (greater than; equal; less than, etc)
      */
     const applyConstraint = (targetVal, operator, sourceVal) => {
-        if (typeof targetVal === "string" && typeof sourceVal === "string") {
+        if (typeof targetVal !== typeof sourceVal) {
+            console.error(
+                `Tried comparing incompatible data types. (Target ${typeof targetVal} and Source ${typeof sourceVal})`
+            );
+            return false;
+        } else if (typeof targetVal === "string") {
             switch (operator) {
                 case "contains":
                     return targetVal.toLowerCase().indexOf(sourceVal.toLowerCase()) > -1;
