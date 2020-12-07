@@ -6,8 +6,7 @@ const defaultStyle = {
     // label: {},
     input: {}
 };
-
-export const SearchableListViewNative = ({ datasource, content, attr, style, placeholder }) => {
+export const SearchableListViewNative = ({ datasource, content, attr, style, placeholder, filterAttributes }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const limit = useRef(20);
     const pid = useRef(null);
@@ -35,19 +34,22 @@ export const SearchableListViewNative = ({ datasource, content, attr, style, pla
     }, [datasource.status]);
     const styles = flattenStyles(defaultStyle, style);
     const filteredData = () => {
-        return datasource.items
-            ? datasource.items.filter(item => {
-                  return attr(item).value
-                      ? attr(item)
-                            .value.toLowerCase()
-                            .indexOf(searchTerm.toLowerCase()) > -1
-                      : false;
-              })
-            : [];
+        return datasource.items ? datasource.items.filter(item => applyFilter(item)) : [];
     };
     const loadNextPage = () => {
         limit.current += 20;
         datasource.setLimit(limit.current);
+    };
+    const applyFilter = item => {
+        // return true if any of the item's filter Attributes match the value of searchTerm...
+        return filterAttributes.some(filterAttribute => {
+            return filterAttribute.attr(item).value
+                ? filterAttribute
+                      .attr(item)
+                      .value.toLowerCase()
+                      .indexOf(searchTerm.toLowerCase()) > -1
+                : false;
+        });
     };
     return datasource.items ? (
         <View style={styles.container}>
