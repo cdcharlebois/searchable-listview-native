@@ -1,13 +1,12 @@
-import { Component, createElement, useState, useEffect, useRef } from "react";
-import { TextInput, View, FlatList } from "react-native";
+import { Component, createElement, useEffect, useRef } from "react";
+import { View, FlatList } from "react-native";
 import { flattenStyles } from "./utils/common";
 const defaultStyle = {
     container: {},
     // label: {},
     input: {}
 };
-export const SearchableListViewNative = ({ datasource, content, attr, style, placeholder, filterAttributes }) => {
-    const [searchTerm, setSearchTerm] = useState("");
+export const SearchableListViewNative = ({ datasource, content, style, constraints, filterContent }) => {
     const limit = useRef(20);
     const pid = useRef(null);
     useEffect(() => {
@@ -34,36 +33,45 @@ export const SearchableListViewNative = ({ datasource, content, attr, style, pla
     }, [datasource.status]);
     const styles = flattenStyles(defaultStyle, style);
     const filteredData = () => {
-        return datasource.items ? datasource.items.filter(item => applyFilter(item)) : [];
+        return datasource.items ? datasource.items.filter(item => applyFilters(item)) : [];
     };
     const loadNextPage = () => {
         limit.current += 20;
         datasource.setLimit(limit.current);
     };
-    const applyFilter = item => {
+    const applyFilters = item => {
         // return true if any of the item's filter Attributes match the value of searchTerm...
-        return filterAttributes.some(filterAttribute => {
-            return filterAttribute.attr(item).value
-                ? filterAttribute
-                      .attr(item)
-                      .value.toLowerCase()
-                      .indexOf(searchTerm.toLowerCase()) > -1
+        return constraints.some(constraint => {
+            return constraint.target(item).value
+                ? applyConstraint(constraint.target(item).value, constraint.operator, constraint.source.value)
                 : false;
         });
     };
+    /**
+     * Returns true if the constraint is matched.
+     * @param {any} targetVal
+     * @param {"contains" | "starts_with" | "equals"} operator
+     * @param {any} sourceVal
+     * TODO:
+     * - use some intelligence to look at numeric types (greater than; equal; less than, etc)
+     */
+    const applyConstraint = (targetVal, operator, sourceVal) => {
+        if (typeof targetVal === "string" && typeof sourceVal === "string") {
+            switch (operator) {
+                case "contains":
+                    return targetVal.toLowerCase().indexOf(sourceVal.toLowerCase()) > -1;
+                case "starts_with":
+                    return targetVal.toLowerCase().indexOf(sourceVal.toLowerCase()) === 0;
+                case "equals":
+                    return targetVal.toLowerCase() === sourceVal.toLowerCase();
+                default:
+                    return false;
+            }
+        }
+    };
     return datasource.items ? (
         <View style={styles.container}>
-            <TextInput
-                style={styles.input}
-                placeholder={(placeholder.status = "available" ? placeholder.value : "...")}
-                value={searchTerm}
-                onChangeText={searchTerm => {
-                    setSearchTerm(searchTerm);
-                    if (searchTerm != "" && searchTerm != null) {
-                        datasource.setLimit(9999);
-                    } else datasource.setLimit(limit.current);
-                }}
-            />
+            {filterContent}
             <FlatList
                 data={filteredData()}
                 renderItem={({ item }) => content(item)}

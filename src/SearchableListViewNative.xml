@@ -14,6 +14,10 @@
     <icon />
     <properties>
         <propertyGroup caption="General">
+            <property key="filterContent" type="widgets" required="false">
+              <caption>Filters</caption>
+              <description>widgets here will provide controls to enter filter criteria</description>
+            </property>
             <property key="datasource" type="datasource" required="true" isList="true">
                 <caption>Data Source</caption>
                 <description />
@@ -22,12 +26,12 @@
                 <caption>Content</caption>
                 <description />
             </property>
-            <property key="filterAttributes" type="object" isList="true" required="true">
-              <caption>Filter Attributes</caption>
-              <description>Only strings for now</description>
+            <property key="constraints" type="object" isList="true" required="true">
+              <caption>Constraints</caption>
+              <description>All Constraints are OR'ed</description>
               <properties>
                 <propertyGroup caption="General">
-                <property key="attr" type="attribute" required="true" dataSource="../datasource">
+                 <property key="target" type="attribute" required="true" dataSource="../datasource">
                   <caption>Search Attribute</caption>
                   <description />
                   <attributeTypes>
@@ -35,14 +39,25 @@
                       <attributeType name="Enum" />
                   </attributeTypes>
                 </property>
+                <property key="operator" type="enumeration" defaultValue="contains" required="true">
+                  <caption>Operator</caption>
+                  <description />
+                  <enumerationValues>
+                    <enumerationValue key="contains">Contains</enumerationValue>
+                    <enumerationValue key="starts_with">Starts With</enumerationValue>
+                    <enumerationValue key="equals">Equals</enumerationValue>
+                  </enumerationValues>
+                </property>
+               <property key="source" type="attribute" required="true">
+                  <caption>Filter Input</caption>
+                  <description />
+                  <attributeTypes>
+                    <attributeType name="String" />
+                    <attributeType name="Enum" />
+                  </attributeTypes>
+                </property>
                 </propertyGroup>
-                
               </properties>
-            </property>
-            <property key="placeholder" type="expression" defaultValue="'Search...'">
-                <caption>Placeholder</caption>
-                <description>Enter the placeholder text</description>
-                <returnType type="String" />
             </property>
         </propertyGroup>
     </properties>
