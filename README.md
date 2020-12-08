@@ -8,5 +8,5 @@ listviews on native.
 -   Add support for numeric filter types => added Big.js comparison operators and GT/GTE/LT/LTE numeric operators ✅
 -   Change the constraints to be "AND"ed => changed `constraints.some()` to `constraints.every()` ✅
 -   Remove the filterContent placeholder => removed ✅
--   Add support for datetime types
+-   Add support for datetime types => added `instanceof Date` type for attribute type, and comparison operators ✅
 -   Allow one source value to be searched in multiple target attributes(?)

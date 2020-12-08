@@ -64,6 +64,23 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
                 `Tried comparing incompatible data types. (Target ${typeof targetVal} and Source ${typeof sourceVal})`
             );
             return false;
+        } else if (targetVal instanceof Date) {
+            // date attribute
+            switch (operator) {
+                case "equals":
+                    return targetVal === sourceVal;
+                case "greater_than":
+                    return targetVal > sourceVal;
+                case "greater_than_or_equal":
+                    return targetVal >= sourceVal;
+                case "less_than":
+                    return targetVal < sourceVal;
+                case "less_than_or_equal":
+                    return targetVal <= sourceVal;
+                default:
+                    console.warn(`Invalid operator for date data type. Tried using "${operator}".`);
+                    return false;
+            }
         } else if (typeof targetVal === "string") {
             // string attributes
             switch (operator) {

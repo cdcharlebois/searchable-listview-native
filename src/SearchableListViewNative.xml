@@ -35,6 +35,8 @@
                       <attributeType name="Enum" />
                       <attributeType name="Integer" />
                       <attributeType name="Decimal" />
+                      <attributeType name="Long" />
+                      <attributeType name="DateTime" />
                   </attributeTypes>
                 </property>
                 <property key="operator" type="enumeration" defaultValue="contains" required="true">
@@ -58,6 +60,8 @@
                     <attributeType name="Enum" />
                     <attributeType name="Integer" />
                     <attributeType name="Decimal" />
+                    <attributeType name="Long" />
+                    <attributeType name="DateTime" />
                   </attributeTypes>
                 </property>
                 </propertyGroup>
