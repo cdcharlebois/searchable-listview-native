@@ -42,9 +42,7 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
     const applyFilters = item => {
         // return true if any of the item's filter Attributes match the value of searchTerm...
         return constraints.every(constraint => {
-            return constraint.target(item).value
-                ? applyConstraint(constraint.target(item).value, constraint.operator, constraint.source.value)
-                : false;
+            return applyConstraint(constraint.target(item).value, constraint.operator, constraint.source.value);
         });
     };
     /**
@@ -56,10 +54,15 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
      * - use some intelligence to look at numeric types (greater than; equal; less than, etc)
      */
     const applyConstraint = (targetVal, operator, sourceVal) => {
-        // debugger;
-        if (!targetVal || !sourceVal) {
+        // console.debug(`filtering on string Target[${targetVal}] Operator[${operator}] Source[${sourceVal}]`);
+        if (!sourceVal) {
+            // no filter specified -- pass everything
             return true;
+        } else if (targetVal === undefined) {
+            // target is empty -- fail everything
+            return false;
         } else if (typeof targetVal !== typeof sourceVal) {
+            // wrong entry in the widget config
             console.warn(
                 `Tried comparing incompatible data types. (Target ${typeof targetVal} and Source ${typeof sourceVal})`
             );
@@ -83,6 +86,9 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
             }
         } else if (typeof targetVal === "string") {
             // string attributes
+            if (sourceVal == "" || !sourceVal) {
+                return true;
+            }
             switch (operator) {
                 case "contains":
                     return targetVal.toLowerCase().indexOf(sourceVal.toLowerCase()) > -1;
@@ -95,7 +101,7 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
                     return false;
             }
         } else if (typeof targetVal === "object") {
-            // numeric (int or decimal)
+            // numeric (int or decimal or long)
             switch (operator) {
                 case "equals":
                     return targetVal.eq(sourceVal);

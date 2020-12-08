@@ -24,7 +24,7 @@
             </property>
             <property key="constraints" type="object" isList="true" required="true">
               <caption>Constraints</caption>
-              <description>All Constraints are AND'ed</description>
+              <description>All constraints are additive. (They're AND'ed)</description>
               <properties>
                 <propertyGroup caption="General">
                  <property key="target" type="attribute" required="true" dataSource="../datasource">

@@ -10,3 +10,4 @@ listviews on native.
 -   Remove the filterContent placeholder => removed ✅
 -   Add support for datetime types => added `instanceof Date` type for attribute type, and comparison operators ✅
 -   Allow one source value to be searched in multiple target attributes(?)
+-   Expressions as constraints(?)
