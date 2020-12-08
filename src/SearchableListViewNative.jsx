@@ -58,7 +58,7 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
     const applyConstraint = (targetVal, operator, sourceVal) => {
         // debugger;
         if (!targetVal || !sourceVal) {
-            return false;
+            return true;
         } else if (typeof targetVal !== typeof sourceVal) {
             console.warn(
                 `Tried comparing incompatible data types. (Target ${typeof targetVal} and Source ${typeof sourceVal})`
