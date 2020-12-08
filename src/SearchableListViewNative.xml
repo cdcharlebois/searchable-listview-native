@@ -14,10 +14,6 @@
     <icon />
     <properties>
         <propertyGroup caption="General">
-            <property key="filterContent" type="widgets" required="false">
-              <caption>Filters</caption>
-              <description>widgets here will provide controls to enter filter criteria</description>
-            </property>
             <property key="datasource" type="datasource" required="true" isList="true">
                 <caption>Data Source</caption>
                 <description />
@@ -28,7 +24,7 @@
             </property>
             <property key="constraints" type="object" isList="true" required="true">
               <caption>Constraints</caption>
-              <description>All Constraints are OR'ed</description>
+              <description>All Constraints are AND'ed</description>
               <properties>
                 <propertyGroup caption="General">
                  <property key="target" type="attribute" required="true" dataSource="../datasource">
@@ -37,6 +33,8 @@
                   <attributeTypes>
                       <attributeType name="String" />
                       <attributeType name="Enum" />
+                      <attributeType name="Integer" />
+                      <attributeType name="Decimal" />
                   </attributeTypes>
                 </property>
                 <property key="operator" type="enumeration" defaultValue="contains" required="true">
@@ -46,6 +44,10 @@
                     <enumerationValue key="contains">Contains</enumerationValue>
                     <enumerationValue key="starts_with">Starts With</enumerationValue>
                     <enumerationValue key="equals">Equals</enumerationValue>
+                    <enumerationValue key="greater_than">Greater Than</enumerationValue>
+                    <enumerationValue key="greater_than_or_equal">Greater Than or Equal To</enumerationValue>
+                    <enumerationValue key="less_than">Less Than</enumerationValue>
+                    <enumerationValue key="less_than_or_equal">Less Than or Equal To</enumerationValue>
                   </enumerationValues>
                 </property>
                <property key="source" type="attribute" required="true">
@@ -54,6 +56,8 @@
                   <attributeTypes>
                     <attributeType name="String" />
                     <attributeType name="Enum" />
+                    <attributeType name="Integer" />
+                    <attributeType name="Decimal" />
                   </attributeTypes>
                 </property>
                 </propertyGroup>

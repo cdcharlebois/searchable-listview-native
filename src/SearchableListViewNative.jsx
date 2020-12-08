@@ -6,7 +6,7 @@ const defaultStyle = {
     // label: {},
     input: {}
 };
-export const SearchableListViewNative = ({ datasource, content, style, constraints, filterContent }) => {
+export const SearchableListViewNative = ({ datasource, content, style, constraints }) => {
     const limit = useRef(20);
     const pid = useRef(null);
     useEffect(() => {
@@ -41,7 +41,7 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
     };
     const applyFilters = item => {
         // return true if any of the item's filter Attributes match the value of searchTerm...
-        return constraints.some(constraint => {
+        return constraints.every(constraint => {
             return constraint.target(item).value
                 ? applyConstraint(constraint.target(item).value, constraint.operator, constraint.source.value)
                 : false;
@@ -56,12 +56,16 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
      * - use some intelligence to look at numeric types (greater than; equal; less than, etc)
      */
     const applyConstraint = (targetVal, operator, sourceVal) => {
-        if (typeof targetVal !== typeof sourceVal) {
-            console.error(
+        // debugger;
+        if (!targetVal || !sourceVal) {
+            return false;
+        } else if (typeof targetVal !== typeof sourceVal) {
+            console.warn(
                 `Tried comparing incompatible data types. (Target ${typeof targetVal} and Source ${typeof sourceVal})`
             );
             return false;
         } else if (typeof targetVal === "string") {
+            // string attributes
             switch (operator) {
                 case "contains":
                     return targetVal.toLowerCase().indexOf(sourceVal.toLowerCase()) > -1;
@@ -70,13 +74,30 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
                 case "equals":
                     return targetVal.toLowerCase() === sourceVal.toLowerCase();
                 default:
+                    console.warn(`Invalid operator for string data type. Tried using "${operator}".`);
+                    return false;
+            }
+        } else if (typeof targetVal === "object") {
+            // numeric (int or decimal)
+            switch (operator) {
+                case "equals":
+                    return targetVal.eq(sourceVal);
+                case "greater_than":
+                    return targetVal.gt(sourceVal);
+                case "greater_than_or_equal":
+                    return targetVal.gte(sourceVal);
+                case "less_than":
+                    return targetVal.lt(sourceVal);
+                case "less_than_or_equal":
+                    return targetVal.lte(sourceVal);
+                default:
+                    console.warn(`Invalid operator for numeric data type. Tried using "${operator}".`);
                     return false;
             }
         }
     };
     return datasource.items ? (
         <View style={styles.container}>
-            {filterContent}
             <FlatList
                 data={filteredData()}
                 renderItem={({ item }) => content(item)}
