@@ -26,7 +26,21 @@
               <caption>Constraints</caption>
               <description>All constraints are additive. (They're AND'ed)</description>
               <properties>
-                <propertyGroup caption="General">
+              <propertyGroup caption="Filter">
+                <property
+                            key="expression"
+                            type="expression"
+                            defaultValue=""
+                            required="false"
+                            dataSource="../datasource"
+                        >
+                  <caption>Constraint Expression</caption>
+                  <description
+                            >When the expression returns true, this record will be included in the result set.</description>
+                  <returnType type="Boolean" />
+                </property>
+              </propertyGroup>
+                <!-- <propertyGroup caption="General">
                  <property key="target" type="attribute" required="true" dataSource="../datasource">
                   <caption>Search Attribute</caption>
                   <description />
@@ -64,7 +78,7 @@
                     <attributeType name="DateTime" />
                   </attributeTypes>
                 </property>
-                </propertyGroup>
+                </propertyGroup> -->
               </properties>
             </property>
         </propertyGroup>
