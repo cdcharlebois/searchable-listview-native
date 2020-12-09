@@ -1,16 +1,14 @@
-# Searchable Listvew Native
+# Filter View
 
 This widget is the spiritual successor to GridSearch, and adds the ability to configure advanced filtering controls to
 listviews on native.
 
 ### Features
 
-* Implement configurable filtering on a listview on Native
-* Model your own filter inputs (using any combination of widgets/nanoflows/attributes)
-* Use those inputs to define dynamic filter constraints via expressions
-* Apply filters to any datasource (database or nanoflow)
-
-
+-   Implement configurable filtering on a listview on Native
+-   Model your own filter inputs (using any combination of widgets/nanoflows/attributes)
+-   Use those inputs to define dynamic filter constraints via expressions
+-   Apply filters to any datasource (database or nanoflow)
 
 ### Implementation
 
