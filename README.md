@@ -1,7 +1,6 @@
 # Filter View
 
-This widget is the spiritual successor to GridSearch, and adds the ability to configure advanced filtering controls to
-listviews on native.
+This widget is the spiritual successor to GridSearch, and adds the ability to configure advanced filtering controls to listviews on native.
 
 ### Features
 

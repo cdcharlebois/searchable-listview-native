@@ -34,7 +34,16 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
     }, [datasource.status]);
     const styles = flattenStyles(defaultStyle, style);
     const applyFilters = item => constraints.every(constraint => constraint.expression(item).value);
-    const filteredData = () => (datasource.items ? datasource.items.filter(item => applyFilters(item)) : []);
+    const filteredData = () => {
+        if (datasource.items) {
+            const filtered = datasource.items.filter(item => applyFilters(item));
+            if (filtered.length === 0) {
+                loadNextPage();
+            } else {
+                return filtered;
+            }
+        }
+    };
     const loadNextPage = () => {
         limit.current += 20;
         datasource.setLimit(limit.current);
