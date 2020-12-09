@@ -40,45 +40,6 @@
                   <returnType type="Boolean" />
                 </property>
               </propertyGroup>
-                <!-- <propertyGroup caption="General">
-                 <property key="target" type="attribute" required="true" dataSource="../datasource">
-                  <caption>Search Attribute</caption>
-                  <description />
-                  <attributeTypes>
-                      <attributeType name="String" />
-                      <attributeType name="Enum" />
-                      <attributeType name="Integer" />
-                      <attributeType name="Decimal" />
-                      <attributeType name="Long" />
-                      <attributeType name="DateTime" />
-                  </attributeTypes>
-                </property>
-                <property key="operator" type="enumeration" defaultValue="contains" required="true">
-                  <caption>Operator</caption>
-                  <description />
-                  <enumerationValues>
-                    <enumerationValue key="contains">Contains</enumerationValue>
-                    <enumerationValue key="starts_with">Starts With</enumerationValue>
-                    <enumerationValue key="equals">Equals</enumerationValue>
-                    <enumerationValue key="greater_than">Greater Than</enumerationValue>
-                    <enumerationValue key="greater_than_or_equal">Greater Than or Equal To</enumerationValue>
-                    <enumerationValue key="less_than">Less Than</enumerationValue>
-                    <enumerationValue key="less_than_or_equal">Less Than or Equal To</enumerationValue>
-                  </enumerationValues>
-                </property>
-               <property key="source" type="attribute" required="true">
-                  <caption>Filter Input</caption>
-                  <description />
-                  <attributeTypes>
-                    <attributeType name="String" />
-                    <attributeType name="Enum" />
-                    <attributeType name="Integer" />
-                    <attributeType name="Decimal" />
-                    <attributeType name="Long" />
-                    <attributeType name="DateTime" />
-                  </attributeTypes>
-                </property>
-                </propertyGroup> -->
               </properties>
             </property>
         </propertyGroup>
