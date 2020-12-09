@@ -37,7 +37,7 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
     const filteredData = () => {
         if (datasource.items) {
             const filtered = datasource.items.filter(item => applyFilters(item));
-            if (filtered.length === 0) {
+            if (filtered.length === 0 && datasource.totalCount && limit.current < datasource.totalCount) {
                 loadNextPage();
             } else {
                 return filtered;
