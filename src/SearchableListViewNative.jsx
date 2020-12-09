@@ -1,5 +1,6 @@
-import { Component, createElement, useEffect, useRef } from "react";
-import { View, FlatList } from "react-native";
+/*global mx*/
+import { FlatList, View } from "react-native";
+import { createElement, useEffect, useRef } from "react";
 import { flattenStyles } from "./utils/common";
 const defaultStyle = {
     container: {},
@@ -32,20 +33,13 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
         };
     }, [datasource.status]);
     const styles = flattenStyles(defaultStyle, style);
-    const filteredData = () => {
-        return datasource.items ? datasource.items.filter(item => applyFilters(item)) : [];
-    };
+    const applyFilters = item => constraints.every(constraint => constraint.expression(item).value);
+    const filteredData = () => (datasource.items ? datasource.items.filter(item => applyFilters(item)) : []);
     const loadNextPage = () => {
         limit.current += 20;
         datasource.setLimit(limit.current);
     };
-    const applyFilters = item => {
-        // return true if any of the item's filter Attributes match the value of searchTerm...
-        return constraints.every(constraint => {
-            // return applyConstraint(constraint.target(item).value, constraint.operator, constraint.source.value);
-            return constraint.expression(item).value;
-        });
-    };
+
     // /**
     //  * Returns true if the constraint is matched.
     //  * @param {any} targetVal
@@ -132,4 +126,4 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
         </View>
     ) : null;
 };
-SearchableListViewNative.displayName = "SearchableListViewNative";
+SearchableListViewNative.displayName = "FilterView";
