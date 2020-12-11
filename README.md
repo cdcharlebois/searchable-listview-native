@@ -1,3 +1,5 @@
+![image-20201211102634539](README.assets/image-20201211102634539.png)
+
 # Filter View
 
 This widget is the spiritual successor to GridSearch, and adds the ability to configure advanced filtering controls to listviews on native.
