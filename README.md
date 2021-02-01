@@ -1,8 +1,9 @@
-![image-20201211102634539](README.assets/image-20201211102634539.png)
+![image-20201211102634539](https://github.com/cdcharlebois/searchable-listview-native/raw/main/README.assets/image-20201211102634539.png)
 
 # Filter View
 
-This widget is the spiritual successor to GridSearch, and adds the ability to configure advanced filtering controls to listviews on native.
+This widget is the spiritual successor to GridSearch, and adds the ability to configure advanced filtering controls to
+listviews on native.
 
 ### Features
 
@@ -15,15 +16,15 @@ This widget is the spiritual successor to GridSearch, and adds the ability to co
 
 Model your own filters, how/where-ever you need!
 
-![image-20201209104841662](README.assets/image-20201209104841662.png)
+![image-20201209104841662](https://raw.githubusercontent.com/cdcharlebois/searchable-listview-native/main/README.assets/image-20201209104841662.png)
 
 Configure the filters via expressions (connecting your filter inputs to datasource attributes)
 
-![image-20201209105028733](README.assets/image-20201209105028733.png)
+![image-20201209105028733](https://github.com/cdcharlebois/searchable-listview-native/raw/main/README.assets/image-20201209105028733.png)
 
 :tada:
 
-![image-20201209105522954](README.assets/image-20201209105522954.png)
+![image-20201209105522954](https://github.com/cdcharlebois/searchable-listview-native/raw/main/README.assets/image-20201209105522954.png)
 
 ### TODO:
 
