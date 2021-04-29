@@ -7,7 +7,7 @@ const defaultStyle = {
     // label: {},
     input: {}
 };
-export const SearchableListViewNative = ({ datasource, content, style, constraints }) => {
+export const SearchableListViewNative = ({ datasource, content, style, constraints, emptyContent }) => {
     const limit = useRef(20);
     const pid = useRef(null);
     useEffect(() => {
@@ -51,16 +51,19 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
         return [];
     };
 
-    return datasource.items ? (
+    const data = filteredData();
+    return data.length ? (
         <View style={styles.container}>
             <FlatList
-                data={filteredData()}
+                data={data}
                 renderItem={({ item }) => content(item)}
                 keyExtractor={item => item.id}
                 onEndReachedThreshold={0.5}
                 onEndReached={() => loadNextPage()}
             />
         </View>
-    ) : null;
+    ) : (
+        <View>{emptyContent}</View>
+    );
 };
 SearchableListViewNative.displayName = "FilterView";

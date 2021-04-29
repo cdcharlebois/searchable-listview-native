@@ -43,6 +43,10 @@
               </propertyGroup>
               </properties>
             </property>
+            <property key="emptyContent" type="widgets" required="false">
+                <caption>Empty Message</caption>
+                <description />
+            </property>
         </propertyGroup>
     </properties>
 </widget>
