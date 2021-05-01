@@ -7,31 +7,41 @@ const defaultStyle = {
     // label: {},
     input: {}
 };
-export const SearchableListViewNative = ({ datasource, content, style, constraints }) => {
+export const SearchableListViewNative = ({
+    datasource,
+    content,
+    style,
+    constraints,
+    emptyContent,
+    loadingContent,
+    showProgressBar
+}) => {
     const limit = useRef(20);
     const pid = useRef(null);
     useEffect(() => {
         datasource.setLimit(limit.current);
     }, []);
-    useEffect(() => {
-        if (datasource.status !== "available" && pid.current == null) {
-            pid.current = mx.ui.showProgress("", true);
-            console.debug(`SearchableListViewNative: Showing progress (${pid.current})`);
-        } else {
-            if (pid.current != null) {
-                mx.ui.hideProgress(pid.current);
-                console.debug(`SearchableListViewNative: Hiding progress (${pid.current})`);
-                pid.current = null;
+    if (showProgressBar) {
+        useEffect(() => {
+            if (datasource.status !== "available" && pid.current == null) {
+                pid.current = mx.ui.showProgress("", true);
+                console.debug(`SearchableListViewNative: Showing progress (${pid.current})`);
+            } else {
+                if (pid.current != null) {
+                    mx.ui.hideProgress(pid.current);
+                    console.debug(`SearchableListViewNative: Hiding progress (${pid.current})`);
+                    pid.current = null;
+                }
             }
-        }
-        return () => {
-            if (pid.current != null) {
-                mx.ui.hideProgress(pid.current);
-                console.debug(`SearchableListViewNative: Hiding progress (${pid.current})`);
-                pid.current = null;
-            }
-        };
-    }, [datasource.status]);
+            return () => {
+                if (pid.current != null) {
+                    mx.ui.hideProgress(pid.current);
+                    console.debug(`SearchableListViewNative: Hiding progress (${pid.current})`);
+                    pid.current = null;
+                }
+            };
+        }, [datasource.status]);
+    }
     const styles = flattenStyles(defaultStyle, style);
     const applyFilters = item => constraints.every(constraint => constraint.expression(item).value);
     const loadNextPage = () => {
@@ -51,16 +61,23 @@ export const SearchableListViewNative = ({ datasource, content, style, constrain
         return [];
     };
 
-    return datasource.items ? (
-        <View style={styles.container}>
-            <FlatList
-                data={filteredData()}
-                renderItem={({ item }) => content(item)}
-                keyExtractor={item => item.id}
-                onEndReachedThreshold={0.5}
-                onEndReached={() => loadNextPage()}
-            />
-        </View>
-    ) : null;
+    if (datasource.status !== "available") {
+        return <View>{loadingContent}</View>;
+    } else {
+        const data = filteredData();
+        return data.length ? (
+            <View style={styles.container}>
+                <FlatList
+                    data={data}
+                    renderItem={({ item }) => content(item)}
+                    keyExtractor={item => item.id}
+                    onEndReachedThreshold={0.5}
+                    onEndReached={() => loadNextPage()}
+                />
+            </View>
+        ) : (
+            <View>{emptyContent}</View>
+        );
+    }
 };
 SearchableListViewNative.displayName = "FilterView";

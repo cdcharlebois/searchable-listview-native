@@ -43,6 +43,18 @@
               </propertyGroup>
               </properties>
             </property>
+            <property key="loadingContent" type="widgets" required="false">
+                <caption>Loading Message</caption>
+                <description />
+            </property>
+            <property key="emptyContent" type="widgets" required="false">
+                <caption>Empty Message</caption>
+                <description />
+            </property>
+            <property key="showProgressBar" type="boolean" defaultValue="true">
+                <caption>Show Progress</caption>
+                <description>Show a progress bar while loading</description>
+            </property>            
         </propertyGroup>
     </properties>
 </widget>
