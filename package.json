@@ -1,7 +1,7 @@
 {
     "name": "searchable-listview-native",
     "widgetName": "SearchableListViewNative",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "A Searchable listview for native",
     "copyright": "Mendix 2019",
     "author": "Conner Charlebois",
@@ -24,7 +24,7 @@
         "url": "https://github.com/Conner Charlebois/searchable-listview-native/issues"
     },
     "devDependencies": {
-        "@mendix/pluggable-widgets-tools": "^8.9.2",
+        "@mendix/pluggable-widgets-tools": "^9.3.1",
         "@prettier/plugin-xml": "^0.12.0"
     },
     "dependencies": {
