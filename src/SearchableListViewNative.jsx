@@ -43,7 +43,7 @@ export const SearchableListViewNative = ({
         }, [datasource.status]);
     }
     const styles = flattenStyles(defaultStyle, style);
-    const applyFilters = item => constraints.every(constraint => constraint.expression(item).value);
+    const applyFilters = item => constraints.every(constraint => constraint.expression.get(item).value);
     const loadNextPage = () => {
         limit.current += 20;
         datasource.setLimit(limit.current);
@@ -69,7 +69,7 @@ export const SearchableListViewNative = ({
             <View style={styles.container}>
                 <FlatList
                     data={data}
-                    renderItem={({ item }) => content(item)}
+                    renderItem={({ item }) => content.get(item)}
                     keyExtractor={item => item.id}
                     onEndReachedThreshold={0.5}
                     onEndReached={() => loadNextPage()}
