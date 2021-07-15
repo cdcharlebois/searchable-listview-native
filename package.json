@@ -6,8 +6,8 @@
     "copyright": "Mendix 2019",
     "author": "Conner Charlebois",
     "config": {
-        "widgetPath": "/Users/conner/mendix/p/NativeReference-main/widgets",
-        "projectPath": "/Users/conner/mendix/p/NativeReference-main"
+        "widgetPath": "/Users/conner.charlebois/Documents/Mendix/Projects/Work_Management -WM-JulyRelease/widgets",
+        "projectPath": "/Users/conner.charlebois/Documents/Mendix/Projects/Work_Management -WM-JulyRelease"
     },
     "packagePath": "mendix",
     "scripts": {

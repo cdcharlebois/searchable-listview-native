@@ -16,7 +16,8 @@ export const SearchableListViewNative = ({
     loadingContent,
     showProgressBar
 }) => {
-    const limit = useRef(20);
+    const pageSize = 500;
+    const limit = useRef(pageSize);
     const pid = useRef(null);
     useEffect(() => {
         datasource.setLimit(limit.current);
@@ -43,15 +44,15 @@ export const SearchableListViewNative = ({
         }, [datasource.status]);
     }
     const styles = flattenStyles(defaultStyle, style);
-    const applyFilters = item => constraints.every(constraint => constraint.expression.get(item).value);
+    const applyFilters = item => constraints.every(constraint => constraint.expression.get ? constraint.expression.get(item).value : constraint.expression(item).value);
     const loadNextPage = () => {
-        limit.current += 20;
+        limit.current += pageSize;
         datasource.setLimit(limit.current);
     };
     const filteredData = () => {
         if (datasource.items) {
             const filtered = datasource.items.filter(item => applyFilters(item));
-            if (filtered.length === 0 && datasource.totalCount && limit.current < datasource.totalCount) {
+            if (filtered.length < pageSize && datasource.totalCount && limit.current < datasource.totalCount) {
                 loadNextPage();
                 return [];
             } else {
@@ -69,7 +70,7 @@ export const SearchableListViewNative = ({
             <View style={styles.container}>
                 <FlatList
                     data={data}
-                    renderItem={({ item }) => content.get(item)}
+                    renderItem={({ item }) => content.get? content.get(item) : content(item)}
                     keyExtractor={item => item.id}
                     onEndReachedThreshold={0.5}
                     onEndReached={() => loadNextPage()}
