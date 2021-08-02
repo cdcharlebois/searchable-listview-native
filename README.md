@@ -5,7 +5,7 @@
 This widget is the spiritual successor to GridSearch, and adds the ability to configure advanced filtering controls to
 listviews on native.
 
-### ⚠️ This widget is only for use in Mendix 8. In Mendix 9, filter nanoflows can be used to achieve the same functionality with out-of-the-box components.
+### ⚠️ This widget is only for use in Mendix 8. In Mendix 9, filter nanoflows can be used to achieve the same functionality with out-of-the-box components. See [the wiki page](https://github.com/cdcharlebois/searchable-listview-native/wiki/Migration-to-Mendix-9) for more details
 
 ### Features
 
